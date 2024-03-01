@@ -1,0 +1,17 @@
+# Environment
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Library
+node_modules
+
+# Distribution
+dist
+build
+
+# Logs
+logs
+*.log
