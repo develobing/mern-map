@@ -1,7 +1,8 @@
-import React from "react";
+import React from 'react';
+import AppRouter from './AppRouter';
 
 function App() {
-  return <div>mern client</div>;
+  return <AppRouter />;
 }
 
 export default App;
