@@ -1,8 +1,14 @@
+import MapContainer from '../../components/MapContainer';
+import MarkersContainer from '../../components/MarkersContainer';
+import Navigation from '../../components/Navigation';
+
 function Upload() {
   return (
-    <div>
-      <h1>Upload</h1>
-    </div>
+    <>
+      <Navigation type="upload" />
+      <MapContainer />
+      <MarkersContainer />
+    </>
   );
 }
 

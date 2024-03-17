@@ -24,7 +24,9 @@ const StyledInput = styled.input<InputProps>`
 
 function Input({ children, name, value, onChange, onSubmit }: InputProps) {
   const onEnterSubmit = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter' && onSubmit) {
+    if (!onSubmit || event.nativeEvent.isComposing) return;
+
+    if (event.key === 'Enter') {
       onSubmit();
     }
   };
