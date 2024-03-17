@@ -5,8 +5,14 @@
  */
 import app from '../app';
 import debug from 'debug';
-
 import http from 'http';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+
+/**
+ * Load environment variables from .env file, where API keys and passwords are configured
+ */
+dotenv.config();
 
 /**
  * Get port from environment and store in Express.
@@ -14,6 +20,23 @@ import http from 'http';
 
 const port = normalizePort('3001');
 app.set('port', port);
+
+/**
+ * Connect to MongoDB
+ */
+if (!process.env.MONGO_URI) {
+  console.log('No MONGO_URI provided');
+  process.exit(1);
+}
+
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((error) => {
+    console.log('Error connecting to MongoDB: ', error.message);
+  });
 
 /**
  * Create HTTP server.
