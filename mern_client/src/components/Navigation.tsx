@@ -9,8 +9,10 @@ import { GoPlus } from 'react-icons/go';
 import { FiArrowLeft } from 'react-icons/fi';
 import { BiSearch } from 'react-icons/bi';
 import { selectAtom } from '../atoms/search';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 import useInput from '../hooks/useInput';
+import { infosAtom } from '../atoms/info';
+import { infos } from '../data/infos';
 
 interface NavigationProps {
   type?: 'home' | 'upload';
@@ -20,12 +22,14 @@ function Navigation({ type = 'home' }: NavigationProps) {
   const [select, setSelect] = useAtom(selectAtom);
   const { value, onChange } = useInput('');
 
+  const setInfos = useSetAtom(infosAtom);
+
   const onChangeSelect = useCallback(() => {
     setSelect(!select);
   }, [select, setSelect]);
 
   const onSubmit = useCallback(() => {
-    console.log('value:', value);
+    setInfos(infos);
   }, [value]);
 
   return (

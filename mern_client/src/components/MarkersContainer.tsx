@@ -1,15 +1,23 @@
 import { useAtom, useAtomValue } from 'jotai';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { mapAtom } from '../atoms/map';
 import { infosAtom, selectInfoAtom } from '../atoms/info';
 import { Info } from '../types/info';
 import Marker from './common/Marker';
 import InfoWindow from './common/InfoWindow';
 
-const MarkersContainer = () => {
+interface MarkersContainerProps {
+  type?: 'home' | 'upload';
+}
+
+const MarkersContainer = ({ type = 'home' }: MarkersContainerProps) => {
   const map = useAtomValue(mapAtom);
   const infos = useAtomValue(infosAtom);
   const [selectInfo, setSelectInfo] = useAtom(selectInfoAtom);
+
+  const onSubmit = useCallback(() => {
+    console.log('제출');
+  }, []);
 
   if (!map || !infos) return null;
 
@@ -39,7 +47,11 @@ const MarkersContainer = () => {
         />
       )}
 
-      <InfoWindow map={map} selectInfo={selectInfo} />
+      <InfoWindow
+        map={map}
+        selectInfo={selectInfo}
+        onSubmit={type === 'upload' ? onSubmit : undefined}
+      />
     </>
   );
 };
