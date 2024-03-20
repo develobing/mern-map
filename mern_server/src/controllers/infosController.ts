@@ -1,0 +1,33 @@
+import { NextFunction, Request, Response } from 'express';
+import { Info } from '../types/infos';
+import infosService from '../services/infosService';
+import { HttpException } from '../middlewares/errorHandler';
+import { HttpCode } from '../types/httpCode';
+
+export default {
+  createInfo: async (req: Request, res: Response, next: NextFunction) => {
+    const info = req.body as Info;
+
+    try {
+      const target = await infosService.getInfo(info.id);
+      if (target) throw new HttpException(HttpCode.CONFLICT, '중복된 데이터');
+
+      await infosService.createInfo(info);
+      res.status(HttpCode.OK).json({ message: '정상적으로 데이터가 입력되었습니다.' });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  getInfos: async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const data = await infosService.getInfos();
+      res.status(HttpCode.OK).json({
+        message: '정상적으로 데이터가 조회되었습니다.',
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+};

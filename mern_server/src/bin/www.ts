@@ -7,17 +7,10 @@ import app from '../app';
 import debug from 'debug';
 import http from 'http';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-
-/**
- * Load environment variables from .env file, where API keys and passwords are configured
- */
-dotenv.config();
 
 /**
  * Get port from environment and store in Express.
  */
-
 const port = normalizePort('3001');
 app.set('port', port);
 
