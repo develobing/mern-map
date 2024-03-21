@@ -4,14 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyles from './styles/GlobalStyles';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <GlobalStyles />
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <GlobalStyles />
+      <App />
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

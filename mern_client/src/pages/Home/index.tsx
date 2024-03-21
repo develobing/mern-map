@@ -1,19 +1,21 @@
 import { useSetAtom } from 'jotai';
+import { useQuery } from 'react-query';
 import { infosAtom } from '../../atoms/info';
-import { infos } from '../../data/infos';
 import MapContainer from '../../components/MapContainer';
 import Navigation from '../../components/Navigation';
 import MarkersContainer from '../../components/MarkersContainer';
-import { useEffect } from 'react';
+import { getInfos } from '../../apis/infos';
 
 function Home() {
   const setInfos = useSetAtom(infosAtom);
-
-  useEffect(() => {
-    if (infos) {
+  const { status } = useQuery('infos', getInfos, {
+    select: (result) => result.data.data,
+    onSuccess: (infos) => {
       setInfos(infos);
-    }
-  }, []);
+    },
+  });
+
+  if (status === 'loading') return <></>;
 
   return (
     <>
